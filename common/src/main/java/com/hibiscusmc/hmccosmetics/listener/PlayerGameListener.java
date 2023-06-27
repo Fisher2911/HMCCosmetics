@@ -355,7 +355,7 @@ public class PlayerGameListener implements Listener {
         if (user.isInWardrobe() && event.getCosmetic().getSlot().equals(CosmeticSlot.BALLOON)) {
             Location NPCLocation = user.getWardrobeManager().getNpcLocation();
             PacketManager.sendTeleportPacket(user.getBalloonManager().getPufferfishBalloonId(), NPCLocation.add(Settings.getBalloonOffset()), false, List.of(event.getUser().getPlayer()));
-            user.getBalloonManager().getModelEntity().teleport(NPCLocation.add(Settings.getBalloonOffset()));
+            user.getBalloonManager().getModelEntity().entity().getOriginal().teleport(NPCLocation.add(Settings.getBalloonOffset()));
         }
     }
 

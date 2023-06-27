@@ -122,7 +122,7 @@ public class UserWardrobeManager {
 
                 Location balloonLocation = npcLocation.clone().add(Settings.getBalloonOffset());
                 PacketManager.sendTeleportPacket(user.getBalloonManager().getPufferfishBalloonId(), balloonLocation , false, viewer);
-                user.getBalloonManager().getModelEntity().teleport(balloonLocation);
+                user.getBalloonManager().getModelEntity().entity().getOriginal().teleport(balloonLocation);
             }
 
             if (WardrobeSettings.getEnabledBossbar()) {
@@ -265,6 +265,7 @@ public class UserWardrobeManager {
                     PacketManager.sendTeleportPacket(user.getUserBackpackManager().getFirstArmorStandId(), location, false, viewer);
                     PacketManager.ridingMountPacket(NPC_ID, user.getUserBackpackManager().getFirstArmorStandId(), viewer);
                     user.getUserBackpackManager().getArmorStand().setRotation(nextyaw, 0);
+                    user.getUserBackpackManager().getArmorStand().sendToAll();
                     PacketManager.sendEntityDestroyPacket(user.getUserBackpackManager().getFirstArmorStandId(), outsideViewers);
                 }
 

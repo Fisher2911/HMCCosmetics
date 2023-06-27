@@ -50,10 +50,11 @@ public class CosmeticBalloonType extends Cosmetic {
         if (entity == null || userBalloonManager == null) return;
         if (user.isInWardrobe()) return;
 
-        if (!userBalloonManager.getModelEntity().isValid()) {
-            user.respawnBalloon();
-            return;
-        }
+        // todo - maybe fix this?
+//        if (!userBalloonManager.getModelEntity().isValid()) {
+//            user.respawnBalloon();
+//            return;
+//        }
 
         Location newLocation = entity.getLocation();
         Location currentLocation = user.getBalloonManager().getLocation();
@@ -62,7 +63,7 @@ public class CosmeticBalloonType extends Cosmetic {
         List<Player> viewer = PacketManager.getViewers(entity.getLocation());
 
         if (entity.getLocation().getWorld() != userBalloonManager.getLocation().getWorld()) {
-            userBalloonManager.getModelEntity().teleport(newLocation);
+            userBalloonManager.getModelEntity().entity().getOriginal().teleport(newLocation);
             PacketManager.sendTeleportPacket(userBalloonManager.getPufferfishBalloonId(), newLocation, false, viewer);
             return;
         }

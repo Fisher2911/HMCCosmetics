@@ -8,7 +8,6 @@ import com.hibiscusmc.hmccosmetics.util.packets.PacketManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.configurate.ConfigurationNode;
 
@@ -39,7 +38,7 @@ public class CosmeticBackpackType extends Cosmetic {
             user.respawnBackpack();
             return;
         }
-        if (loc.getWorld() != user.getUserBackpackManager().getArmorStand().getWorld()) {
+        if (loc.getWorld() != user.getUserBackpackManager().getArmorStand().getLocation().getWorld()) {
             user.getUserBackpackManager().getArmorStand().teleport(loc);
         }
 

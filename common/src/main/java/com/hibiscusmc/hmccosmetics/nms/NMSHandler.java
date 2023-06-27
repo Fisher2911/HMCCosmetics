@@ -3,30 +3,38 @@ package com.hibiscusmc.hmccosmetics.nms;
 import com.hibiscusmc.hmccosmetics.cosmetic.CosmeticSlot;
 import com.hibiscusmc.hmccosmetics.cosmetic.types.CosmeticBackpackType;
 import com.hibiscusmc.hmccosmetics.cosmetic.types.CosmeticBalloonType;
-import com.hibiscusmc.hmccosmetics.user.manager.UserBalloonManager;
+import com.hibiscusmc.hmccosmetics.hooks.modelengine.MegEntityWrapper;
 import com.hibiscusmc.hmccosmetics.user.CosmeticUser;
-import net.kyori.adventure.text.Component;
+import com.hibiscusmc.hmccosmetics.user.manager.UserBalloonManager;
 import org.bukkit.Location;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Set;
 
 public interface NMSHandler {
 
     int getNextEntityId();
 
-    Entity getEntity(int entityId);
+    @Nullable
+    PacketEntity getEntity(int entityId);
 
-    Entity getHMCArmorStand(Location loc);
+    PacketArmorStand getHMCArmorStand(Location loc);
 
-    ArmorStand getMEGEntity(Location loc);
+    <T extends PacketEntity> MegEntityWrapper<T> getMEGEntity(Location loc);
 
-    Entity spawnBackpack(CosmeticUser user, CosmeticBackpackType cosmeticBackpackType);
+    @Nullable
+    PacketArmorStand spawnBackpack(
+            CosmeticUser user,
+            CosmeticBackpackType cosmeticBackpackType,
+            Set<Player> viewers
+    );
 
-    Entity spawnHMCParticleCloud(Location location);
+    @Nullable
+    PacketParticleCloud spawnHMCParticleCloud(Location location);
 
     Entity spawnDisplayEntity(Location location, String text);
 
@@ -55,7 +63,8 @@ public interface NMSHandler {
             Player player,
             String NPCName);
 
-    default boolean getSupported () {
+    default boolean getSupported() {
         return false;
     }
+
 }
