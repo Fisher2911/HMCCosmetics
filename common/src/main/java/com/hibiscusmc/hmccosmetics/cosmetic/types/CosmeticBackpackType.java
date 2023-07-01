@@ -1,6 +1,7 @@
 package com.hibiscusmc.hmccosmetics.cosmetic.types;
 
 import com.hibiscusmc.hmccosmetics.cosmetic.Cosmetic;
+import com.hibiscusmc.hmccosmetics.nms.PacketArmorStand;
 import com.hibiscusmc.hmccosmetics.user.CosmeticUser;
 import com.hibiscusmc.hmccosmetics.user.manager.UserBackpackManager;
 import com.hibiscusmc.hmccosmetics.util.MessagesUtil;
@@ -49,7 +50,9 @@ public class CosmeticBackpackType extends Cosmetic {
             PacketManager.sendRidingPacket(entity.getEntityId(), user.getUserBackpackManager().getAreaEffectEntityId(), loc);
             PacketManager.sendRidingPacket(user.getUserBackpackManager().getAreaEffectEntityId(), user.getUserBackpackManager().getFirstArmorStandId(), loc);
         } else {
-            PacketManager.sendRidingPacket(entity.getEntityId(), user.getUserBackpackManager().getFirstArmorStandId(), loc);
+            final PacketArmorStand armorStand = user.getUserBackpackManager().getArmorStand();
+            armorStand.setRiding(entity.getEntityId());
+//            PacketManager.sendRidingPacket(entity.getEntityId(), user.getUserBackpackManager().getFirstArmorStandId(), loc);
         }
 
         user.getUserBackpackManager().getArmorStand().setRotation(loc.getYaw(), loc.getPitch());

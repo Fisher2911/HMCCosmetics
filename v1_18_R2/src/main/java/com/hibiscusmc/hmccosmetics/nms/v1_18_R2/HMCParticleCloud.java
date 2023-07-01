@@ -1,12 +1,10 @@
 package com.hibiscusmc.hmccosmetics.nms.v1_18_R2;
 
 
-import com.hibiscusmc.hmccosmetics.nms.PacketEntity;
 import com.hibiscusmc.hmccosmetics.nms.PacketEquipment;
 import com.hibiscusmc.hmccosmetics.nms.PacketParticleCloud;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.Set;
@@ -15,10 +13,6 @@ public class HMCParticleCloud extends PacketParticleCloud /*extends AreaEffectCl
 
     public HMCParticleCloud(Set<Player> viewers, int entityId, Location location, PacketEquipment equipment) {
         super(viewers, entityId, location, equipment);
-    }
-
-    public HMCParticleCloud(Set<Player> viewers, int entityId, Location location, PacketEquipment equipment, @Nullable PacketEntity riding) {
-        super(viewers, entityId, location, equipment, riding);
     }
 
     @Override
@@ -38,6 +32,11 @@ public class HMCParticleCloud extends PacketParticleCloud /*extends AreaEffectCl
 
     @Override
     public void teleport(Location location) {
+
+    }
+
+    @Override
+    public void sendRiding() {
 
     }
 

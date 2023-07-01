@@ -8,6 +8,7 @@ import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 public abstract class PacketEntity {
@@ -17,7 +18,8 @@ public abstract class PacketEntity {
     private Location location;
     private final PacketEquipment equipment;
     @Nullable
-    private PacketEntity riding;
+    private Integer riding;
+    private final Set<Integer> passengers;
     @Nullable
     private Vector velocity;
 
@@ -26,19 +28,17 @@ public abstract class PacketEntity {
         this.entityId = entityId;
         this.location = location;
         this.equipment = equipment;
-    }
-
-    public PacketEntity(Set<Player> viewers, int entityId, Location location, PacketEquipment equipment, @Nullable PacketEntity riding) {
-        this(viewers, entityId, location, equipment);
-        this.riding = riding;
+        this.passengers = new HashSet<>();
     }
 
     public void addViewers(Collection<? extends Player> viewers) {
         this.viewers.addAll(viewers);
+        this.sendToViewers(viewers);
     }
 
     public void removeViewers(Collection<? extends Player> viewers) {
         this.viewers.removeAll(viewers);
+        this.despawn(viewers);
     }
 
     public void sendToAll() {
@@ -58,12 +58,26 @@ public abstract class PacketEntity {
         return this.entityId;
     }
 
-    public @Nullable PacketEntity getRiding() {
+    public @Nullable Integer getRiding() {
         return this.riding;
     }
 
-    public void setRiding(@Nullable PacketEntity riding) {
+    public void setRiding(@Nullable Integer riding) {
         this.riding = riding;
+        this.sendRiding();
+    }
+
+    public void addPassengers(Collection<Integer> passengers) {
+        this.passengers.addAll(passengers);
+    }
+
+    public void removePassengers(Collection<Integer> passengers) {
+        this.passengers.removeAll(passengers);
+    }
+
+    @Unmodifiable
+    public Set<Integer> getPassengers() {
+        return Collections.unmodifiableSet(this.passengers);
     }
 
     public Location getLocation() {
@@ -94,9 +108,13 @@ public abstract class PacketEntity {
 
     public abstract void sendToViewers(Collection<? extends Player> viewers);
 
-    public abstract void despawn(Collection<? extends Player> viewers);
+    public void despawn(Collection<? extends Player> viewers) {
+
+    }
 
     public abstract void sendEquipment();
+
+    public abstract void sendRiding();
 
     public abstract void teleport(Location location);
 

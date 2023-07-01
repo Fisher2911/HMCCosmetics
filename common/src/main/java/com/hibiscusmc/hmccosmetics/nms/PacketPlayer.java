@@ -18,11 +18,6 @@ public class PacketPlayer extends PacketEntity {
         this.uuid = uuid;
     }
 
-    public PacketPlayer(Set<Player> viewers, int entityId, Location location, PacketEquipment equipment, @Nullable PacketEntity riding, UUID uuid) {
-        super(viewers, entityId, location, equipment, riding);
-        this.uuid = uuid;
-    }
-
     @Nullable
     public Player getPlayer() {
         return Bukkit.getPlayer(this.uuid);
@@ -49,6 +44,11 @@ public class PacketPlayer extends PacketEntity {
 
     @Override
     public void teleport(Location location) {
+
+    }
+
+    @Override
+    public void sendRiding() {
 
     }
 

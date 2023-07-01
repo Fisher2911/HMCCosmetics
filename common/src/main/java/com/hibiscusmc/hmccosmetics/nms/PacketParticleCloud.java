@@ -12,8 +12,4 @@ public abstract class PacketParticleCloud extends PacketEntity {
         super(viewers, entityId, location, equipment);
     }
 
-    public PacketParticleCloud(Set<Player> viewers, int entityId, Location location, PacketEquipment equipment, @Nullable PacketEntity riding) {
-        super(viewers, entityId, location, equipment, riding);
-    }
-
 }

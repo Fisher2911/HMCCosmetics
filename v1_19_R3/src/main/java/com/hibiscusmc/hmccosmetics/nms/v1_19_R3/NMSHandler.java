@@ -244,7 +244,6 @@ public class NMSHandler implements com.hibiscusmc.hmccosmetics.nms.NMSHandler {
         if (packetEntity != null) {
             packetEntity.getEquipment().set(slot, item);
             packetEntity.sendToViewers(sendTo);
-            packetEntity.sendEquipment();
             return;
         }
 

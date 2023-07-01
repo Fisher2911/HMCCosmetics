@@ -21,13 +21,9 @@ public abstract class PacketArmorStand extends PacketEntity {
         this.uuid = uuid;
     }
 
-    public PacketArmorStand(Set<Player> viewers, int entityId, Location location, PacketEquipment equipment, UUID uuid, @Nullable PacketEntity riding) {
-        super(viewers, entityId, location, equipment, riding);
-        this.uuid = uuid;
-    }
-
     public void setHelmet(@Nullable ItemStack helmet) {
         this.getEquipment().set(EquipmentSlot.HEAD, helmet);
+        this.sendEquipment();
     }
 
     public @Nullable ItemStack getHelmetStack() {
@@ -37,12 +33,13 @@ public abstract class PacketArmorStand extends PacketEntity {
     public void setRotation(float yaw, float pitch) {
         this.getLocation().setYaw(yaw);
         this.getLocation().setPitch(pitch);
+        this.sendRotation();
     }
 
     public MegEntityWrapper<PacketArmorStand> getMegEntityWrapper() {
         if (megEntityWrapper == null) {
-            this.megEntityWrapper = new MegEntityWrapper(
-                    new PacketBaseEntity(
+            this.megEntityWrapper = new MegEntityWrapper<>(
+                    new PacketBaseEntity<>(
                             this,
                             this.getEntityId(),
                             this.uuid
@@ -55,5 +52,7 @@ public abstract class PacketArmorStand extends PacketEntity {
     public UUID getUuid() {
         return this.uuid;
     }
+
+    public abstract void sendRotation();
 
 }
